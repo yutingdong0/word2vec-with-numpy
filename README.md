@@ -30,24 +30,20 @@ where:
 
 ## Gradients
 
-Let $ x = u_o^T v_c $ and $ z_k = u_k^T v_c $.
+Let $x = u_o^T v_c$ and $z_k = u_k^T v_c$.
 
 Then:
 
 * Positive term:
-  $$
-  \frac{d}{dx}[-\log \sigma(x)] = \sigma(x) - 1
-  $$
+  $$\frac{d}{dx}[-\log \sigma(x)] = \sigma(x) - 1$$
 * Negative term:
-  $$
-  \frac{d}{dz_k}[-\log \sigma(-z_k)] = \sigma(z_k)
-  $$
+  $$\frac{d}{dz_k}[-\log \sigma(-z_k)] = \sigma(z_k)$$
 
 From this:
 
-* $ \frac{\partial L}{\partial u_o} = (\sigma(x) - 1) v_c $
-* $ \frac{\partial L}{\partial u_k} = \sigma(z_k) v_c $
-* $ \frac{\partial L}{\partial v_c} = (\sigma(x) - 1) u_o + \sum_k \sigma(z_k) u_k $
+* $\frac{\partial L}{\partial u_o} = (\sigma(x) - 1) v_c$
+* $\frac{\partial L}{\partial u_k} = \sigma(z_k) v_c$
+* $\frac{\partial L}{\partial v_c} = (\sigma(x) - 1) u_o + \sum_k \sigma(z_k) u_k$
 
 These gradients are implemented directly in `word2vec.py`.
 
