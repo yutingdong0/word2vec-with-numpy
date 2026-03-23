@@ -14,15 +14,15 @@ The implementation uses:
 
 ## Model
 
-For a center word embedding ( v_c ), a positive context embedding ( u_o ), and negative context embeddings ( u_k ), the loss for one training example is:
+For a center word embedding $ v_c $, a positive context embedding $ u_o $, and negative context embeddings $ u_k $, the loss for one training example is:
 
-$
+$$
 L = -\log \sigma(u_o^T v_c) - \sum_k \log \sigma(-u_k^T v_c)
-$
+$$
 
 where:
 
-* ( \sigma(x) = \frac{1}{1 + e^{-x}} ) is the sigmoid function
+* $\sigma(x) = \frac{1}{1 + e^{-x}}$  is the sigmoid function
 * the first term encourages true context words to have high similarity
 * the second term pushes negative samples away
 
@@ -30,25 +30,24 @@ where:
 
 ## Gradients
 
-Let ( x = u_o^T v_c ) and ( z_k = u_k^T v_c ).
+Let $ x = u_o^T v_c $ and $ z_k = u_k^T v_c $.
 
 Then:
 
 * Positive term:
-  [
+  $$
   \frac{d}{dx}[-\log \sigma(x)] = \sigma(x) - 1
-  ]
-
+  $$
 * Negative term:
-  [
+  $$
   \frac{d}{dz_k}[-\log \sigma(-z_k)] = \sigma(z_k)
-  ]
+  $$
 
 From this:
 
-* ( \frac{\partial L}{\partial u_o} = (\sigma(x) - 1) v_c )
-* ( \frac{\partial L}{\partial u_k} = \sigma(z_k) v_c )
-* ( \frac{\partial L}{\partial v_c} = (\sigma(x) - 1) u_o + \sum_k \sigma(z_k) u_k )
+* $ \frac{\partial L}{\partial u_o} = (\sigma(x) - 1) v_c $
+* $ \frac{\partial L}{\partial u_k} = \sigma(z_k) v_c $
+* $ \frac{\partial L}{\partial v_c} = (\sigma(x) - 1) u_o + \sum_k \sigma(z_k) u_k $
 
 These gradients are implemented directly in `word2vec.py`.
 
